@@ -1,0 +1,96 @@
+﻿@model List<MidWay.Models.Business>
+@if (ViewBag.MidLat == null)
+{
+    @Html.Hidden("midLat")
+    @Html.Hidden("midLng")
+}
+else
+{
+    @Html.Hidden("midLat", (decimal)ViewBag.MidLat)
+    @Html.Hidden("midLng", (decimal)ViewBag.MidLng)
+}
+
+@(ViewBag.Businesses == null ? Html.Hidden("Businesses") : Html.Hidden("Businesses", (string)ViewBag.Businesses))
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script async defer src="http://maps.googleapis.com/maps/api/js?key=AIzaSyABDqSOqOtqZIz7iaouakzvKNoymCthKv4&callback=initMap" type="text/javascript"></script>
+    <script type="text/javascript" src="~/Scripts/InitializeMap.js"></script>
+    @RenderSection("scripts", required: false)
+</head>
+<body>
+<div class="wrapper">
+
+    <nav id="sidebar">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header">
+            <h3>MidWay</h3>
+        </div>
+
+        <!-- Sidebar Links -->
+        @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+        {
+            <div id="toolBox-Label" class="col-sm-12 col-md-12">
+                <h5>Location 1:</h5>
+            </div>
+            <div class="col-sm-12 col-md-12">
+                @Html.TextBox("location1", ViewBag.Address1 == null ? null:(string) ViewBag.Address1, new { @class = "form-control", @placeholder = "ex. 400 Broadway St, Cincinnati, OH 45202" })
+            </div>
+            <div id="toolBox-Label" class="col-sm-12 col-md-12">
+                <h5>Location 2:</h5>
+            </div>
+            <div class="col-sm-12 col-md-12">
+                @Html.TextBox("location2", ViewBag.Address2 == null ? null : (string)ViewBag.Address2, new { @class = "form-control", @placeholder = "ex. 3860 Race Rd #105, Cincinnati, OH 45211" })
+            </div>
+            <div id="toolBox-Label" class="col-sm-12 col-md-12">
+                <h5>Description:</h5>
+            </div>
+            <div class="col-sm-12 col-md-12">
+                @Html.TextBox("description", ViewBag.Description == null ? null : (string)ViewBag.Description, new { @class = "form-control", @placeholder = "ex. Food, Bar, Popular.." })
+            </div>
+            <div id="toolBox-Label" class="col-sm-12 col-md-12 text-right">
+                <input type="submit" class="btn btn-info" value="Submit" />
+            </div>
+        }
+        @if (Model != null)
+        {
+            <div id="table-wrapper">
+                <div id="table-scroll">
+                    <table class="table table-hover">
+                        @foreach (var business in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <img src="@business.image_url"/>
+                                </td>
+                                <td>
+                                    @business.name
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        }
+    </nav>
+    <div id="content">
+
+        <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
+            Menu
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+
+        @RenderBody()
+    </div>
+</div>
+</body>
+</html>
