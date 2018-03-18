@@ -39,7 +39,11 @@ function initialize() {
             marker = new google.maps.Marker({
                 position: latlng,
                 map: map,
-                title: businesses[x].name
+                title: businesses[x].name,
+                url:businesses[x].url
+            });
+            google.maps.event.addListener(marker, 'click', function () {
+                window.open(this.url);
             });
         }
     }
