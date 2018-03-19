@@ -14,12 +14,13 @@ function pinSymbol(color) {
 function initialize() {
     var midlat = $('#midLat').val();
     var midlng = $('#midLng').val();
-    
+    var milesSelected = $('#milesSelected').val();
+
     if (midlat) {
         //GeoLocation is not supported by this browser.
         var mapOptions = {
             center: new google.maps.LatLng(midlat, midlng),
-            zoom: 10,
+            zoom: ZoomMap(milesSelected),
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         var map = new google.maps.Map(document.getElementById("map_canvas"),
@@ -54,7 +55,7 @@ function initialize() {
 
             var mapOptions = {
                 center: new google.maps.LatLng(lat, lon),
-                zoom: 10,
+                zoom: ZoomMap(milesSelected),
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
             var map = new google.maps.Map(document.getElementById("map_canvas"),
@@ -71,7 +72,7 @@ function initialize() {
         //GeoLocation is not supported by this browser.
         var mapOptions = {
             center: new google.maps.LatLng(6.9167, 79.8473),
-            zoom: 10,
+            zoom: ZoomMap(milesSelected),
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         var map = new google.maps.Map(document.getElementById("map_canvas"),
@@ -83,5 +84,44 @@ function initialize() {
             map: map,
             title: 'Default Location'
         });
+    }
+    function ZoomMap(miles) {
+        var zoom = 10;
+        switch(miles) {
+            case "1":
+            case "2": 
+            case "3": 
+            case "4": 
+            case "5": 
+                zoom = 15;
+                break;
+            case "6":
+            case "7":
+            case "8":
+            case "9":
+            case "10":
+            case "11":
+            case "12":
+            case "13":
+            case "14":
+            case "15":
+            case "16": 
+            case "17": 
+            case "18": 
+            case "19": 
+            case "20":
+                zoom = 13;
+                break;
+            case "21": 
+            case "22": 
+            case "23": 
+            case "24": 
+            case "25":
+                zoom = 11;
+                break;
+            default:
+                break;
+        }
+        return zoom;
     }
 }

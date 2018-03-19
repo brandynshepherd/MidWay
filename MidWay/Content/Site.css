@@ -26,13 +26,13 @@ textarea
 #map_canvas 
 {
     width: calc(100% - 250px);
-    height: calc(100% - 60px);
+    height: calc(100% - 70px);
     position:absolute;
 }
 #map_canvas.active 
 {
     width:100%;
-    height: calc(100% - 60px);
+    height: calc(100% - 70px);
 }
 #toolBox-Label {
     margin-top: 10px;
@@ -70,7 +70,7 @@ textarea
     #map_canvas.active 
     {
         width: calc(100% - 250px);
-        height: calc(100% - 60px);
+        height: calc(100% - 70px);
     }
 }
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
@@ -95,7 +95,7 @@ a, a:hover, a:focus {
 
 #sidebar {
     /* don't forget to add all the previously mentioned styles here too */
-    background: #3f989b;
+    background: linear-gradient(#3f989b ,#026a6d) ;
     color: #fff;
     transition: all 0.3s;
 }
@@ -138,7 +138,7 @@ ul ul a {
     position: relative;
 }
 #table-scroll {
-    height: calc(100% - 400px);
+    height: calc(100% - 490px);
     overflow:auto;  
     margin-top:20px;
 }
@@ -155,4 +155,16 @@ th {
 table img {
     border-radius: 50%;
     max-width: 50px;
+}
+#content {
+    width: 100%;
+}
+.header-inline {
+    display: inline-block !important;
+}
+#MainHeader {
+    color: white;
+    text-align: center;
+    font-family: "Brush Script MT", cursive;
+    padding-top: 10px;
 }

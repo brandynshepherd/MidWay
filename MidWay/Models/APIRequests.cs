@@ -32,11 +32,11 @@ namespace MidWay.Models
                 }
             }
         }
-        public static async Task<List<Business>> GetBusiness(double lat, double lng, string Description)
+        public static async Task<List<Business>> GetBusiness(double lat, double lng, string Description, int Meters)
         {
             var latitude = Math.Round(lat, 6);
             var longitude = Math.Round(lng, 6);
-            var businessURL = "https://api.yelp.com/v3/businesses/search?term=" + Description + "&latitude=" + latitude + "&longitude=" + longitude + "&radius=32187";
+            var businessURL = "https://api.yelp.com/v3/businesses/search?term=" + Description + "&latitude=" + latitude + "&longitude=" + longitude + "&radius="+Meters;
             using (var client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "EDqXyZRFBzhS4jW1UYel1cUpQ1Nw8OalqL9YEeLpUAVK5noxoO2WjPZCo_NhwkguhH0v79o-cYqFyDfpSRUOtGRfwlXZvEWgFZVmk4kb034Swl2gXQ0oJOHpF0isWnYx");

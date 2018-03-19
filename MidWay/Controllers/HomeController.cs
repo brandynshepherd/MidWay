@@ -30,20 +30,22 @@ namespace MidWay.Controllers
             var location1 = formCollection["location1"];
             var location2 = formCollection["location2"];
             var Description = formCollection["description"];
+            var Miles = formCollection["miles"];
 
             if (!string.IsNullOrEmpty(location1) && !string.IsNullOrEmpty(location2))
             {
                 var result = LocationRequest(location1, location2);
                 ViewBag.MidLat = midPoint.lat;
                 ViewBag.MidLng = midPoint.lng;
+                var calc = new Calculations();
 
-                var result2 = BusinessRequest(midPoint.lat, midPoint.lng, Description);
+                var result2 = BusinessRequest(midPoint.lat, midPoint.lng, Description, calc.MilesToMeters(Convert.ToInt32(Miles)));
             }
 
             ViewBag.Address1 = location1;
             ViewBag.Address2 = location2;
             ViewBag.Description = Description;
-
+            ViewBag.MileSelected = Convert.ToInt32(Miles);
 
             ViewBag.Businesses = JsonConvert.SerializeObject(Businesses);
 
@@ -60,9 +62,9 @@ namespace MidWay.Controllers
             var midpoint = calc.Midpoint(result1.First().geometry.location, result2.First().geometry.location);
             midPoint = midpoint;
         }
-        async Task BusinessRequest(double lat, double lng, string Description)
+        async Task BusinessRequest(double lat, double lng, string Description, int meters)
         {
-            List<Business> result = await APIRequests.GetBusiness(lat,lng,Description);
+            List<Business> result = await APIRequests.GetBusiness(lat,lng,Description, meters);
             Businesses = result;
         }
     }

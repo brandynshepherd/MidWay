@@ -15,6 +15,10 @@ namespace MidWay.Models
             return calculateCoord(latlong1, brng, arcLength / 2);
         }
 
+        public int MilesToMeters(int miles)
+        {
+            return miles * 1609;
+        }
 
         double earthRadius = 6367;
         private double haversineDistance(Location latlong1, Location latlong2)

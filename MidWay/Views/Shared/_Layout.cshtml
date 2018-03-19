@@ -3,11 +3,13 @@
 {
     @Html.Hidden("midLat")
     @Html.Hidden("midLng")
+    @Html.Hidden("milesSelected")
 }
 else
 {
     @Html.Hidden("midLat", (decimal)ViewBag.MidLat)
     @Html.Hidden("midLng", (decimal)ViewBag.MidLng)
+    @Html.Hidden("milesSelected", (int)ViewBag.MileSelected)
 }
 
 @(ViewBag.Businesses == null ? Html.Hidden("Businesses") : Html.Hidden("Businesses", (string)ViewBag.Businesses))
@@ -30,8 +32,8 @@ else
 
     <nav id="sidebar">
         <!-- Sidebar Header -->
-        <div class="sidebar-header">
-            <h3>MidWay</h3>
+        <div id="MainHeader" class="sidebar-header">
+            <h1>MidWay</h1>
         </div>
 
         <!-- Sidebar Links -->
@@ -55,6 +57,30 @@ else
             <div class="col-sm-12 col-md-12">
                 @Html.TextBox("description", ViewBag.Description == null ? null : (string)ViewBag.Description, new { @class = "form-control", @placeholder = "ex. Food, Bar, Popular.." })
             </div>
+            <div id="toolBox-Label" class="col-sm-12 col-md-12">
+                <h5>Distance: (Miles)</h5>
+            </div>
+            <div id="toolBox-Label" class="col-sm-12 col-md-12">
+                <select name="miles" class="form-control">
+                    @{
+                        for(var mile = 1; mile <= 24; mile++)
+                        {
+                            if (ViewBag.MileSelected == mile)
+                            {
+                                <option value="@mile" selected="selected">
+                                    @mile
+                                </option>
+                            }
+                            else
+                            {
+                                <option value="@mile">
+                                    @mile
+                                </option>
+                            }
+                        }
+                    }
+                </select>
+            </div>
             <div id="toolBox-Label" class="col-sm-12 col-md-12 text-right">
                 <input type="submit" class="btn btn-info" value="Submit" />
             </div>
@@ -73,6 +99,9 @@ else
                                 <td>
                                     <a href="@business.url" target="_blank">@business.name</a>
                                 </td>
+                                <td>
+                                    <a href="@business.url" target="_blank">@business.rating</a>
+                                </td>
                             </tr>
                         }
                     </table>
@@ -81,14 +110,17 @@ else
         }
     </nav>
     <div id="content">
-
-        <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
-            Menu
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-
+        <div class="col-3 col-sm-1 col-md-1 col-lg-1 header-inline">
+            <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
+                Menu
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div id="MainHeader" class="col-5 col-sm-5 col-md-10 col-lg-10 header-inline">
+            <h1>MidWay</h1>
+        </div>
         @RenderBody()
     </div>
 </div>
